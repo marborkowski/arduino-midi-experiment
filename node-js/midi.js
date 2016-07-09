@@ -13,10 +13,27 @@ try {
     output.openVirtualPort('');
 }
 
+var normal = [
+  0, 12, 24, 36, 48, 60, 72, 84, 96, 108, 120,
+  2, 14, 26, 38, 50, 62, 74, 86, 98, 110, 122,
+  4, 16, 28, 40, 52, 64, 76, 88, 100, 112, 124,
+  5, 17, 29, 41, 53, 65, 77, 89, 101, 113, 125,
+  7, 19, 31, 43, 55, 67, 79, 91, 103, 115, 127,
+  9, 21, 33, 45, 57, 69, 81, 93, 105, 117,
+  11, 23, 35, 47, 59, 71, 83, 95, 107, 119
+];
+
 var song = [];
+/**var song = [
+  [38, 500, 1000],
+  [38, 500, 1000],
+  [40, 500, 1000],
+  [38, 500, 1000],
+  [43, 500, 1000],
+];**/
 
 for (var i = 0; i <= 70; i++) {
-  song.push([Math.round(Math.random()*60+40), 200 + Math.round(Math.random()*3000), 50 + Math.round(Math.random()*3000)]);
+  song.push([normal[Math.floor(Math.random()*normal.length)], 200 + Math.round(Math.random()*3000), 50 + Math.round(Math.random()*3000)]);
 }
 
 var timeline = 0;
@@ -41,7 +58,9 @@ function play() {
                 output.sendMessage([128, noteNo, 100]);
 
                 if (++index === song.length) {
-                  play();
+                  setTimeout(function () {
+                      play();
+                  }, space);
                 }
             }, timeline + duration);
 
